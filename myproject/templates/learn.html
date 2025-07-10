@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Learn{% endblock title %}
+
+{% block body %}
+<style>
+  .service-list .service-item {
+    cursor: pointer;
+    padding: 0.5rem;
+    border: none !important; /* Remove bootstrap borders */
+  }
+  .service-list .service-item:hover {
+    color: purple;
+  }
+  .service-list .service-item.active {
+    background-color: purple !important;
+    color: white !important;
+    border-radius: 0.25rem;
+  }
+</style>
+
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-md-9 border-end">
+      <div id="service-introduction">
+        <h2>Welcome to the Learn Page</h2>
+        <p>Select a service from the right to learn more about it.</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <ul class="list-group service-list">
+        <li class="list-group-item service-item" onclick="showIntroduction('smm', this)">SMM</li>
+        <li class="list-group-item service-item" onclick="showIntroduction('product-marketing', this)">Product Marketing</li>
+        <li class="list-group-item service-item" onclick="showIntroduction('automation', this)">Automation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showIntroduction(service, element) {
+    // Reset background color for all items
+    const serviceItems = document.querySelectorAll('.service-item');
+    serviceItems.forEach(item => {
+      item.classList.remove('active');
+    });
+
+    // Set background for the clicked item
+    element.classList.add('active');
+
+    const introductionDiv = document.getElementById('service-introduction');
+    let title = '';
+    let text = '';
+
+    switch (service) {
+      case 'smm':
+        title = 'Social Media Marketing (SMM)';
+        text = 'This is the introduction to our SMM services. We help you connect with your audience and build your brand on social media.';
+        break;
+      case 'product-marketing':
+        title = 'Product Marketing';
+        text = 'Our product marketing services focus on bringing your products to the right market and audience. We create strategies to launch and promote your products effectively.';
+        break;
+      case 'automation':
+        title = 'Automation';
+        text = 'We provide automation solutions to streamline your business processes, improve efficiency, and reduce manual effort.';
+        break;
+      default:
+        title = 'Welcome to the Learn Page';
+        text = 'Select a service from the right to learn more about it.';
+    }
+
+    introductionDiv.innerHTML = `<h2>${title}</h2><p>${text}</p>`;
+  }
+</script>
+{% endblock body %}
